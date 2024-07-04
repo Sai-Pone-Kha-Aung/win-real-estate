@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
-import "./Navbar.scss"
 import Image from 'next/image'
+import "./Navbar.scss"
 const Navbar = () => {
 
   const [open, setOpen] = useState(false);
