@@ -5,9 +5,16 @@ import Link from 'next/link'
 
 const types = ['buy', 'rent'];
 
+interface Query{
+  type: string;
+  city: string;
+  minPrice: number;
+  maxPrice: number;
+}
+
 const SearchBar = () => {
 
-  const [query, setQuery] = useState({
+  const [query, setQuery] = useState<Query>({
     type: "buy",
     city: "",
     minPrice: 0,
@@ -18,8 +25,9 @@ const SearchBar = () => {
     setQuery((prev) => ({...prev, type: val }))
   }
 
-  const handleChange = (e: any) => {
-    setQuery((prev) => ({...prev, [e.target.name]: e.target.value }))
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value} = e.target;
+    setQuery((prev) => ({ ...prev, [name.toLowerCase()]: value }))
   }
 
   return (

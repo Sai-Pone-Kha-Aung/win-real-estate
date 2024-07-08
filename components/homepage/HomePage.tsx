@@ -4,7 +4,7 @@ import SearchBar from '../searchbar/SearchBar'
 
 const HomePage = () => {
   return (
-    <div className="homePage">
+    <div className="homePage" data-testid="home-page">
         <div className="textContainer">
             <div className="wrapper">
                 <h1 className="title">Find Real Estate & Get Your Dream Home</h1>

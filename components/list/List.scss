@@ -1,0 +1,26 @@
+@import '@/app/global.scss';
+
+.listPage {
+    @include pageLayout;
+    
+    .listContainer{
+        flex: 3;
+        height: 100%;
+        min-height: 0;
+
+        .wrapper {
+            padding-right: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            overflow-y: scroll;
+            max-height: 100%;
+        }
+    }
+
+    .mapContainer{
+        flex: 2;
+        height: 100%;
+        background-color: #fcf5f3;
+    }
+}
