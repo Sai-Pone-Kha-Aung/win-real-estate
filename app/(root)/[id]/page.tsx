@@ -1,9 +1,12 @@
+import SinglePage from '@/components/singlePage/SinglePage'
 import React from 'react'
 
-const SinglePage = () => {
+const page = () => {
   return (
-    <div>SinglePage</div>
+    <div>
+      <SinglePage/>
+    </div>
   )
 }
 
-export default SinglePage
+export default page

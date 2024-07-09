@@ -3,7 +3,7 @@ import ListPage from '@/components/list/List'
 
 const List = () => {
   return (
-    <div className='page'>
+    <div>
       <ListPage />
     </div>
   )
