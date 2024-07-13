@@ -2,8 +2,10 @@
 @import "@/components/responsive/responsive.scss";
 
 .singlePage {
-    @include pageLayout;
     display: flex;
+    height: calc(100vh - 100px);
+    padding-right: 20px;
+    padding-left: 20px;
 
     @include md {
         flex-direction: column;

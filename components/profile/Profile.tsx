@@ -22,7 +22,7 @@ const Profile = () => {
 
             <div className="title">
               <h1>My List</h1>
-              <Link href="/add">
+              <Link href="/new-post">
                 <button>Creat New Post</button>
               </Link>
             </div>

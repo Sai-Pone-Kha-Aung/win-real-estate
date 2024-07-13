@@ -1,7 +1,10 @@
 @import '@/app/global.scss';
 
 .listPage {
-    @include pageLayout;
+    display: flex;
+    height: calc(100vh - 100px);
+    padding-left: 20px;
+    padding-right: 20px;
     
     .listContainer{
         flex: 3;
