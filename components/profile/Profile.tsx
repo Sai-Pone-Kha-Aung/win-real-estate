@@ -1,23 +1,54 @@
+'use client'
 import Link from 'next/link'
 import './Profile.scss'
 import MyList from '../mylist/MyList'
 import Chat from '../chat/Chat'
+import apiRequest from '@/lib/apiRequest'
+import { useRouter } from 'next/navigation'
+import { AuthContext } from '@/context/AuthContext'
+import { useContext, useEffect, useState } from 'react'
+
 const Profile = () => {
+  const {updateUser, currentUser} = useContext(AuthContext)!;
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsClient(true);
+    if(!currentUser) {
+      router.push("/sign-in");
+    }
+  }, [currentUser, router]);
+
+  if(!isClient) {
+    return null;
+  }
+
+  const handleSignOut = async() => {
+    try{
+      await apiRequest.post("/auth/logout");
+      updateUser(null);
+      router.push("/sign-in");
+    } catch(error) {
+
+    }
+  }
   return (
-    <div className='profilePage'>
+    currentUser && (<div className='profilePage'>
         <div className='details'>
           <div className="wrapper">
             <div className="title">
               <h1>User Information</h1>
-              <Link href="/profile/update">
+              <Link href="/profile/profile-update">
                 <button>Update Profile</button>
               </Link>
             </div>
 
             <div className="info">
-              <span>Avatar: <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /></span>
-              <span>Username: <b>John Doe</b></span>
-              <span>Email: <b>johndoe@gmail.com</b></span>
+              <span>Avatar: <img src={currentUser?.avatar || "./noavatar.jpg"} alt="" /></span>
+              <span>Username: <b>{currentUser?.username}</b></span>
+              <span>Email: <b>{currentUser?.email}</b></span>
+              <button onClick={handleSignOut}>Sign Out</button>
             </div>
 
             <div className="title">
@@ -38,7 +69,7 @@ const Profile = () => {
             <Chat/>
           </div>
         </div>
-    </div>
+    </div>)
   )
 }
 
