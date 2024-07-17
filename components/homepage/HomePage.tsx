@@ -11,7 +11,6 @@ const HomePage = () => {
     }, []);
 
     const {currentUser} = useContext(AuthContext)!;
-    //console.log(currentUser)
 
   return (
     <div className="homePage" data-testid="home-page">
