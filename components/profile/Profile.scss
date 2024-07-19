@@ -9,7 +9,7 @@
 
     @include md {
         flex-direction: column;
-        overflow: scroll;
+        overflow-y: scroll;
     }
 
     .details{

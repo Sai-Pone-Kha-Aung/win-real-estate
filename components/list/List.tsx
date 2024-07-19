@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import './List.scss'
 import Filter from '../filter/Filter'
 import Card from '../card/Card'
@@ -9,7 +9,7 @@ import { getDefaultPostData } from '@/constants/data'
 import apiRequest from '@/lib/apiRequest'
 import { useSearchParams } from 'next/navigation'
 
-const ListPage = () =>{
+const ListPage = () => {
   const [post, setPost] = useState<PostData[]>
   ([getDefaultPostData()]);
   const searchParams = useSearchParams();
@@ -24,20 +24,23 @@ const ListPage = () =>{
       }
       fetchData();
   }, []); 
-  console.log(post)
 
   return (
     <div className='listPage'>
       <div className='listContainer'> 
         <div className='wrapper'>
           <Filter />
-          {post.map((item) => (
-            <Card key={item.id} item={item} />
-          ))}
+          <Suspense fallback={<p>Loading...</p>}>
+            {post.map((item) => (
+              <Card key={item.id} item={item} />
+            ))}
+          </Suspense>
         </div>
       </div> 
       <div className='mapContainer'>
+      <Suspense fallback={<p>Loading...</p>}>
         <Map item={post}/>
+      </Suspense>
       </div>
     </div>
   )

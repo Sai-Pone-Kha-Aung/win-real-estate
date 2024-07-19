@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
 import "./Card.scss"
-import { CardProps } from '../../lib/types'
+import { CardProps } from '@/types'
+
 
 const Card = ({ item }: CardProps) => {
   return (

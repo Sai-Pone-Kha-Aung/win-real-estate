@@ -78,7 +78,7 @@ const page = () => {
             maxImageFileSize: 2000000,
             folder: "avatars",
           }}
-          setState={(value: string) => setAvatar([value])}
+          setState={setAvatar}
           setPublicId={(id: string) => updateUser({ ...currentUser!, avatar: id })}
         />
       </div>

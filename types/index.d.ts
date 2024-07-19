@@ -3,7 +3,7 @@ declare type CardProps = {
         id: number;
         title: string;
         images: string[];
-        bedRooms: number;
+        bedroom: number;
         bathroom: number;
         price: number;
         address: string;
@@ -21,6 +21,7 @@ export interface PostData {
     bathroom: number;
     price: number;
     address: string;
+    isSaved: boolean;
     city: string;
     latitude: number;
     longitude: number;
@@ -35,10 +36,11 @@ export interface PostData {
         restaurant: number,
     }
     user: {
+        id: number;
         username: string;
         avatar: string;
     }
-    
-   
+ 
 }
+
 

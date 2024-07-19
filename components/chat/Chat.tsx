@@ -1,9 +1,12 @@
 'use client'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './Chat.scss'
+import { AuthContext } from '@/context/AuthContext';
 
 const Chat = () => {
     const [chat, setChat] = useState(true);
+    const {currentUser} = useContext(AuthContext)!;
+
   return (
     <div className="chat">
         <div className="messages">

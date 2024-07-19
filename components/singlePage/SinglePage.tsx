@@ -1,24 +1,44 @@
 'use client'
-import Map from '../map/Map'
+import { useContext, useEffect, useState } from 'react'
 import Slider from '../slider/Slider'
-import './SinglePage.scss'
 import apiRequest from '@/lib/apiRequest'
-import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
-import { PostData } from '@/types'
+import Map from '../map/Map'
+import { useParams, useRouter } from 'next/navigation'
 import { getDefaultPostData } from '@/constants/data'
+import { AuthContext } from '@/context/AuthContext'
+import { PostData } from '@/types'
+import './SinglePage.scss'
 
 const SinglePage = () => {
     const [post, setPost] = useState<PostData>(
         getDefaultPostData(),
     );
+    const {currentUser} = useContext(AuthContext)!;
+    const [saved, setSaved] = useState(false);
     const {id} = useParams();
+    const router = useRouter();
+
+    const handleSave = async () => {
+        if(!currentUser) {
+            router.push("/sign-in");
+            return;
+        }
+
+        setSaved((prev) => !prev);
+        try {
+            await apiRequest.post("/users/save", {postId: post.id});
+        } catch (error) {
+            console.log(error)
+            setSaved((prev) => !prev);
+        }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
             try{
                 const res = await apiRequest.get(`/posts/${id}`);
                 setPost(res.data);
+                setSaved(res.data.isSaved);
             } catch(error){
                 console.log("failed to fetch data", error);
             }
@@ -26,6 +46,7 @@ const SinglePage = () => {
         fetchData();
     }, [])
     console.log(post)
+
     return (
       <div className='singlePage'>
         <div className='details'>
@@ -141,9 +162,11 @@ const SinglePage = () => {
                     <img src="./chat.png" alt=""/>
                     Send a Message
                 </button>
-                <button>
+                <button onClick={handleSave}
+                    style={{backgroundColor: saved ? "#fece51" : "white"}}
+                >
                     <img src="./save.png" alt=""/>
-                    Save
+                    {saved ? "Place Saved" : "Save the Place"}
                 </button>
             </div>
           </div>
