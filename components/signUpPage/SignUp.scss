@@ -31,6 +31,11 @@
                 color: white;
                 font-weight: bold;
                 cursor: pointer;
+
+                &:disabled {
+                    background-color: #bed9d8;
+                    cursor: not-allowed;
+                }
             }
         }
     }

@@ -1,8 +1,18 @@
-import React from 'react'
+'use client'
+import React, { useContext, useEffect, useState } from 'react'
 import './homePage.scss'
 import SearchBar from '../searchbar/SearchBar'
+import { AuthContext } from '@/context/AuthContext'
 
 const HomePage = () => {
+    const [isClient, setIsClient] = useState(false);
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    const {currentUser} = useContext(AuthContext)!;
+    //console.log(currentUser)
+
   return (
     <div className="homePage" data-testid="home-page">
         <div className="textContainer">

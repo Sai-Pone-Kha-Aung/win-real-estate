@@ -1,12 +1,23 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import "./Navbar.scss"
 import Link from 'next/link'
+import { AuthContext } from '@/context/AuthContext'
 const Navbar = () => {
 
   const [open, setOpen] = useState(false);
-  const user = true;
+  const {currentUser} = useContext(AuthContext)!;
+  const [setMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, [])
+
+  if(!setMounted) {
+    return null;
+  }
+
   return (
     <nav>
         <div className="left" data-testid="navbar-left">
@@ -25,12 +36,12 @@ const Navbar = () => {
             <a href='/'>Agents</a>
         </div>
         <div className="right" data-testid="navbar-right">
-            {user ? (
+            {currentUser ? (
                 <div className='user'>
                     <img 
-                    src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                    src={currentUser.avatar || "./noavatar.jpg"}
                     alt=''/>
-                    <span>John Doe</span>
+                    <span>{currentUser.username}</span>
                     <Link href="/profile" className='profile'>
                         <div className="notification">3</div>
                         <span>Profile</span>
@@ -38,8 +49,8 @@ const Navbar = () => {
                 </div>
             ) : (
                 <>
-                    <a href='/'>Sing In</a>
-                    <a href='/' className='register'>Sign Up</a>
+                    <a href='/sign-in'>Sing In</a>
+                    <a href='/sign-up' className='register'>Sign Up</a>
                 </>
             )}
             <div className='menuIcon'>
