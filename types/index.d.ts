@@ -3,7 +3,7 @@ declare type CardProps = {
         id: number;
         title: string;
         images: string[];
-        bedroom: number;
+        bedRooms: number;
         bathroom: number;
         price: number;
         address: string;

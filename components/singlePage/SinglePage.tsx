@@ -41,18 +41,21 @@ const SinglePage = () => {
                     <img src="./utility.png" alt=""/>
                     <div className='featureText'>
                         <span>Utility</span>
+                        <p>Rental is responsible</p>
                     </div>
                 </div>
                 <div className='feature'>
                     <img src="./pet.png" alt=""/>
                     <div className='featureText'>
                         <span>Pet Policy</span>
+                        <p>Pets allowed</p>
                     </div>
                 </div>
                 <div className='feature'>
                     <img src="./fee.png" alt=""/>
                     <div className='featureText'>
                         <span>Property Fees</span>
+                        <p>Must have 3x the rent in total household income</p>
                     </div>
                 </div>
             </div>
@@ -60,15 +63,15 @@ const SinglePage = () => {
             <div className='sizes'>
                 <div className='size'>
                     <img src="./size.png" alt=""/>
-                    <span>sqft</span>
+                    <span>{singlePostData.size} sqft</span>
                 </div>
                 <div className='size'>
                     <img src="./bed.png" alt=""/>
-                    <span>2</span>
+                    <span>{singlePostData.bedRooms}</span>
                 </div>
                 <div className='size'>
                     <img src="./bath.png" alt=""/>
-                    <span>2</span>
+                    <span>{singlePostData.bathroom}</span>
                 </div>
             </div>
             <p className='title'>Nearby Place</p>
@@ -77,27 +80,27 @@ const SinglePage = () => {
                     <img src="./school.png" alt=""/>
                     <div className='featureText'>
                         <span>School</span>
-                        <p>90m away</p>
+                        <p>{singlePostData.school}</p>
                     </div>
                 </div>
                 <div className='feature'>
                     <img src="./pet.png" alt=""/>
                     <div className='featureText'>
                         <span>Bus Stop</span>
-                        <p>90m away</p>
+                        <p>{singlePostData.bus}</p>
                     </div>
                 </div>
                 <div className='feature'>
                     <img src="./fee.png" alt=""/>
                     <div className='featureText'>
                         <span>Restaurant</span>
-                        <p>90m away</p>
+                        <p>{singlePostData.restaurant}</p>
                     </div>
                 </div>
             </div>
             <p className='title'>Location</p>
             <div className='mapConatiner'>
-                {/* <Map item={}/> */}
+                <Map item={[singlePostData]}/>
             </div>
             <div className='buttons'>
                 <button>
