@@ -2,9 +2,11 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import "./Navbar.scss"
+import Link from 'next/link'
 const Navbar = () => {
 
   const [open, setOpen] = useState(false);
+  const user = true;
   return (
     <nav>
         <div className="left" data-testid="navbar-left">
@@ -23,8 +25,23 @@ const Navbar = () => {
             <a href='/'>Agents</a>
         </div>
         <div className="right" data-testid="navbar-right">
-            <a href='/'>Sing In</a>
-            <a href='/' className='register'>Sign Up</a>
+            {user ? (
+                <div className='user'>
+                    <img 
+                    src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                    alt=''/>
+                    <span>John Doe</span>
+                    <Link href="/profile" className='profile'>
+                        <div className="notification">3</div>
+                        <span>Profile</span>
+                    </Link>
+                </div>
+            ) : (
+                <>
+                    <a href='/'>Sing In</a>
+                    <a href='/' className='register'>Sign Up</a>
+                </>
+            )}
             <div className='menuIcon'>
                 <Image
                     src="/menu.png"
