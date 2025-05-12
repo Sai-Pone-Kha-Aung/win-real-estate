@@ -1,9 +1,12 @@
 import React from 'react'
+import ListPage from '@/components/list/List'
 
-const ListPage = () => {
+const List = () => {
   return (
-    <div> ListPage</div>
+    <div className='page'>
+      <ListPage />
+    </div>
   )
 }
 
-export default ListPage
+export default List
