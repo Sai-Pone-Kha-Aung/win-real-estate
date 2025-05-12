@@ -1,11 +1,10 @@
-import Image from "next/image";
-import "./layout.scss";
-import Navbar from "@/components/Navbar";
+import HomePage from "@/components/homepage/HomePage";
+import '@/app/(root)/layout.scss';
 
 export default function Home() {
   return (
-    <div className="layout">
-      <Navbar />
+    <div className="home">
+      <HomePage />
     </div>
   );
 }
