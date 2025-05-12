@@ -10,7 +10,6 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const [isloading, setIsLoading] = useState(false);
   const {updateUser} = useContext(AuthContext)!;
-  console.log(updateUser)
 
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +40,7 @@ const SignIn = () => {
     <div className='signInPage'>
         <div className="formContainer">
             <form onSubmit={handleSubmit}>
-                <h1>Welcome back</h1>
+                    <h1>Welcome back</h1>
                     <input 
                         name="username" 
                         required

@@ -47,8 +47,8 @@ const SearchBar = () => {
       <form>
         <input 
           type="text"
-          name="City"
-          placeholder='city'
+          name="city"
+          placeholder='City'
           onChange={handleChange}
         />
         <input 
@@ -67,7 +67,7 @@ const SearchBar = () => {
           placeholder='Max Price'
           onChange={handleChange}
         />
-        <Link href="/list">
+        <Link href={`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}>
           <button>
             <img src="/search.png" alt="" />
           </button>

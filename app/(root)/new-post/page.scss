@@ -69,5 +69,10 @@
         gap: 20px;
         align-items: center;
         justify-content: center;
+
+        img{
+            width: 50%;
+            object-fit: cover;
+        }
     }
 }

@@ -1,18 +1,65 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import "./page.scss"
 import "react-quill/dist/quill.snow.css";
 import dynamic from 'next/dynamic';
+import apiRequest from '@/lib/apiRequest';
+import { useRouter } from 'next/navigation';
+import UploadWidget from '@/components/uploadWidget/UploadWidget';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const NewPostPage = () => {
+  const [value, setValue] = useState("");
+  const [images, setImages] = useState<string[]>([]);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const input = Object.fromEntries(formData);
+
+    try {
+      const res = await apiRequest.post("/posts", {
+        postData: {
+          title: input.title,
+          price: parseInt(input.price as string),
+          address: input.address,
+          city: input.city,
+          bedroom: parseInt(input.bedroom as string),
+          bathroom: parseInt(input.bathroom as string),
+          type: input.type,
+          property: input.property,
+          latitude: input.latitude,
+          longitude: input.longitude,
+          images: images,
+        },
+        postDetail: {
+          desc: value,
+          utilities: input.utilities,
+          pet: input.pet,
+          income: input.income,
+          size: parseInt(input.size as string),
+          school: parseInt(input.school as string),
+          bus: parseInt(input.bus as string),
+          restaurant: parseInt(input.restaurant as string),
+        }
+      });
+
+      router.push("/"+res.data.id);
+    } catch (error) {
+      console.log(error)
+      setError(error.response.data.message);
+    }
+  }
   return (
     <div className='newPostPage'>
         <div className="formContainer">
             <h1>Add New Post</h1>
             <div className="wrapper">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="item">
                 <label htmlFor="title">Title</label>
                 <input type="text" name="title" id="title"  />
@@ -27,7 +74,7 @@ const NewPostPage = () => {
               </div>
               <div className="item description">
                 <label htmlFor="description">Description</label>
-                <ReactQuill theme="snow"/>
+                <ReactQuill theme="snow" onChange={setValue} value={value}/>
               </div>
               <div className="item">
                 <label htmlFor="city">City</label>
@@ -43,11 +90,11 @@ const NewPostPage = () => {
               </div>
               <div className="item">
                 <label htmlFor="latitude">Latitude</label>
-                <input type="latitude" name="latitude" id="address"  />
+                <input type="latitude" name="latitude" id="latitude"  />
               </div>
               <div className="item">
-                <label htmlFor="longitude">Longtitude</label>
-                <input type="text" name="address" id="address"  />
+                <label htmlFor="longitude">Longitude</label>
+                <input type="text" name="longitude" id="longitude"  />
               </div>
               <div className="item">
                 <label htmlFor="type">Type</label>
@@ -104,11 +151,28 @@ const NewPostPage = () => {
                 <input min={0} type="number" name="restaurant" id="restaurant"  />
               </div>
               <button className='addButton'>Add</button>
+              {error && <span>{error}</span>}
             </form>
             </div>
         </div>
         <div className="sideContainer">
-            update widget
+          {images.map((image, index) => (
+            <img
+              src={image}
+              key={index}
+              alt=""
+            />
+          ))}
+          <UploadWidget
+          uwConfig={{
+            multiple: true,
+            cloudName: "daykndeow",
+            uploadPreset: "win_estate",
+            folder: "posts",
+          }}
+          setState={setImages}
+          setPublicId={() => {}}
+        />
         </div>
     </div>
   )

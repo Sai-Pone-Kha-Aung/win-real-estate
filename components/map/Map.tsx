@@ -12,7 +12,7 @@ interface Item {
   id: number;
   title: string;
   images: string[];
-  bedRooms: number;
+  bedroom: number;
   bathroom: number;
   price: number;
   address: string;
@@ -27,7 +27,7 @@ export default function Map({item}: CardProps) {
 
   return (
       <MapContainer
-        center={[52.4797, -1.90269]}
+        center={item.length === 1 ? [item[0].latitude, item[0].longitude] : [52.4797, -1.90269]}
         zoom={11}
         scrollWheelZoom={true}
         className="map"
